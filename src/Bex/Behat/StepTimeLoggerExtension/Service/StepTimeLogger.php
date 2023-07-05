@@ -25,7 +25,7 @@ class StepTimeLogger
     public function logStepStarted($stepName)
     {
         $this->calledSteps[] = $stepName;
-        $this->lastStepStartTime = microtime(true);
+        $this->lastStepStartTime = (float)shell_exec('date +%s%N')/1000000000;
     }
 
     /**
@@ -33,7 +33,7 @@ class StepTimeLogger
      */
     public function logStepFinished($stepName)
     {
-        $this->executionTimes[$stepName][] = microtime(true) - $this->lastStepStartTime;
+        $this->executionTimes[$stepName][] = ((float)shell_exec('date +%s%N')/1000000000) - $this->lastStepStartTime;
     }
 
     /**
